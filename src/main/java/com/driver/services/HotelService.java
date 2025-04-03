@@ -16,6 +16,9 @@ public class HotelService {
         if(hotel==null || hotel.getHotelName()==null){
             return  "FAILURE";
         }
+        if(hotelRepository.getHotelByHotelName(hotel.getHotelName()).isPresent()){
+            return "FAILURE";
+        }
         Hotel savedHotel;
         try{
             savedHotel = hotelRepository.addHotel(hotel);
@@ -34,21 +37,18 @@ public class HotelService {
         HashMap<String,Hotel> hotels = hotelRepository.findAll();
         return hotels.values().stream()
                 .filter(hotel -> hotel.getFacilities()!=null && hotel.getFacilities().size()>0)
-                .max(Comparator.comparingInt(hotel->hotel.getFacilities().size()))
+                .max(Comparator.comparingInt((Hotel hotel) -> hotel.getFacilities().size())
+                                .thenComparing(Hotel::getHotelName))
                 .map(Hotel::getHotelName)
                 .orElse("");
-
     }
 
-    public Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
+    public List<Facility> updateFacilities(List<Facility> newFacilities, String hotelName) {
 
         Optional<Hotel> result =  hotelRepository.getHotelByHotelName(hotelName);
         Hotel hotel = result.get();
-        HashSet<Facility> mergedFacilities = new HashSet<>();
-        mergedFacilities.addAll(hotel.getFacilities());
-        mergedFacilities.addAll(newFacilities);
-        hotel.setFacilities((List<Facility>) mergedFacilities);
-        return hotel;
+        hotel.setFacilities(newFacilities);
+        return newFacilities;
     }
 
     public void update(Hotel hotel) {
