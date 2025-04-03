@@ -11,8 +11,6 @@ public class UserRepository {
 
     private static final HashMap<Integer, User> users = new HashMap<>();
 
-    public UserRepository(){
-    }
 
     public Optional<User> addUser(User user){
         if(users.get(user.getaadharCardNo())!=null){
