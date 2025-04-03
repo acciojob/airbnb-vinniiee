@@ -24,14 +24,7 @@ public class HotelManagementController {
 
     @PostMapping("/add-hotel")
     public String addHotel(@RequestBody Hotel hotel) {
-        if (hotel == null || hotel.getHotelName() == null || hotel.getHotelName().isEmpty()) {
-            return "FAILURE";
-        }
-        if (hotelService.findHotelByHotelName(hotel.getHotelName()).isPresent()) {
-            return "FAILURE";
-        }
-        hotelService.addHotel(hotel);
-        return "SUCCESS";
+        return hotelService.addHotel(hotel);
     }
 
     @PostMapping("/add-user")
@@ -56,7 +49,7 @@ public class HotelManagementController {
     }
 
     @PutMapping("/update-facilities")
-    public Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
+    public List<Facility> updateFacilities(List<Facility> newFacilities, String hotelName) {
         return hotelService.updateFacilities(newFacilities, hotelName);
     }
 }

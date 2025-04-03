@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public class BookingService {
 
         HashMap<String,Booking> bookings = bookingRepository.findAll();
         List<Booking> searchResults = bookings.values().stream()
-                .filter(booking->booking.getBookingAadharCard()==aadharCard)
+                .filter(booking-> Objects.equals(booking.getBookingAadharCard(), aadharCard))
                 .collect(Collectors.toList());
         return searchResults.size();
     }
