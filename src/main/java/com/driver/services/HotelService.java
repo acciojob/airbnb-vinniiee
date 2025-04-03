@@ -43,12 +43,12 @@ public class HotelService {
                 .orElse("");
     }
 
-    public List<Facility> updateFacilities(List<Facility> newFacilities, String hotelName) {
+    public Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
 
         Optional<Hotel> result =  hotelRepository.getHotelByHotelName(hotelName);
         Hotel hotel = result.get();
         hotel.setFacilities(newFacilities);
-        return newFacilities;
+        return hotel;
     }
 
     public void update(Hotel hotel) {

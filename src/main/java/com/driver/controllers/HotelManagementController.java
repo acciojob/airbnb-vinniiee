@@ -49,7 +49,7 @@ public class HotelManagementController {
     }
 
     @PutMapping("/update-facilities")
-    public List<Facility> updateFacilities(List<Facility> newFacilities, String hotelName) {
+    public  Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
         return hotelService.updateFacilities(newFacilities, hotelName);
     }
 }
