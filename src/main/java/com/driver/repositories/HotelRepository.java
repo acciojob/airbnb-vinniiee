@@ -3,26 +3,32 @@ package com.driver.repositories;
 import com.driver.model.Hotel;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class HotelRepository {
 
-    private static final HashMap<String,Hotel> hotels = new HashMap<>();
+    private static final List<Hotel> hotels = new ArrayList<>();
 
     public HotelRepository(){
     }
 
-    public HashMap<String,Hotel> findAll(){
+    public List<Hotel> findAll(){
         return hotels;
     }
 
-    public Optional<Hotel> getHotelByHotelName(String hotelName){
-        return Optional.ofNullable(hotels.get(hotelName));
+    public Hotel getHotelByHotelName(String hotelName){
+
+        for(Hotel hotel: hotels){
+            if(hotel.getHotelName().equals(hotelName))
+            return hotel;
+        }
+        return null;
+
     }
     public Hotel addHotel(Hotel hotel){
-        hotels.put(hotel.getHotelName(),hotel);
+        hotels.add(hotel);
         return hotel;
     }
 }
