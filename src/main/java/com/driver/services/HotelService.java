@@ -25,7 +25,7 @@ public class HotelService {
         }catch (Exception e) {
             return "FAILURE";
         }
-        return savedHotel.toString();
+        return "SUCCESS";
     }
 
     public Optional<Hotel> findHotelByHotelName(String hotelName){
