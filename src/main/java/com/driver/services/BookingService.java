@@ -19,8 +19,7 @@ public class BookingService {
 
     BookingRepository bookingRepository = new BookingRepository();
     public Optional<Booking> save(Booking booking) {
-        Optional<Hotel> optionalHotel = hotelService.findHotelByHotelName(booking.getHotelName());
-        Hotel hotel = optionalHotel.get();
+        Hotel hotel = hotelService.findHotelByHotelName(booking.getHotelName());
         int ratePerRoom = hotel.getPricePerNight();
         int availableRooms = hotel.getAvailableRooms();
         int requiredNoOfRooms = booking.getNoOfRooms();

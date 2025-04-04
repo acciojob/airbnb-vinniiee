@@ -16,26 +16,22 @@ public class HotelService {
         if(hotel==null || hotel.getHotelName()==null){
             return  "FAILURE";
         }
-        if(hotelRepository.getHotelByHotelName(hotel.getHotelName()).isPresent()){
+        if(hotelRepository.getHotelByHotelName(hotel.getHotelName())!=null){
             return "FAILURE";
         }
         Hotel savedHotel;
-        try{
-            savedHotel = hotelRepository.addHotel(hotel);
-        }catch (Exception e) {
-            return "FAILURE";
-        }
+        savedHotel = hotelRepository.addHotel(hotel);
         return "SUCCESS";
     }
 
-    public Optional<Hotel> findHotelByHotelName(String hotelName){
+    public Hotel findHotelByHotelName(String hotelName){
         return hotelRepository.getHotelByHotelName(hotelName);
     }
 
 
     public String getHotelWithMostFacilities() {
-        HashMap<String,Hotel> hotels = hotelRepository.findAll();
-        return hotels.values().stream()
+        List<Hotel> hotels = hotelRepository.findAll();
+        return hotels.stream()
                 .filter(hotel -> hotel.getFacilities()!=null && hotel.getFacilities().size()>0)
                 .max(Comparator.comparingInt((Hotel hotel) -> hotel.getFacilities().size())
                                 .thenComparing(Hotel::getHotelName))
@@ -45,13 +41,9 @@ public class HotelService {
 
     public Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
 
-        Optional<Hotel> result =  hotelRepository.getHotelByHotelName(hotelName);
-        Hotel hotel = result.get();
+        Hotel hotel =  hotelRepository.getHotelByHotelName(hotelName);
         hotel.setFacilities(newFacilities);
         return hotel;
     }
 
-    public void update(Hotel hotel) {
-
-    }
 }
