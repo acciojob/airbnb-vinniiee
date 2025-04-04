@@ -4,7 +4,6 @@ import com.driver.model.Booking;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 @Repository
 public class BookingRepository {
@@ -13,10 +12,10 @@ public class BookingRepository {
 
     public BookingRepository(){
     }
-    public Optional<Booking> save(Booking booking) {
-
+    public Booking save(Booking booking) {
+        if(booking==null)return null;
         bookings.put(booking.getBookingId(),booking);
-        return Optional.of(booking);
+        return booking;
     }
 
     public HashMap<String, Booking> findAll() {

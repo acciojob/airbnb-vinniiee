@@ -19,7 +19,7 @@ public class HotelRepository {
     }
 
     public Hotel getHotelByHotelName(String hotelName){
-
+        if(hotelName==null)return null;
         for(Hotel hotel: hotels){
             if(hotel.getHotelName().equals(hotelName))
             return hotel;
@@ -28,6 +28,7 @@ public class HotelRepository {
 
     }
     public Hotel addHotel(Hotel hotel){
+        if(hotel==null)return null;
         hotels.add(hotel);
         return hotel;
     }

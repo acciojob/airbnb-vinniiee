@@ -25,12 +25,14 @@ public class HotelService {
     }
 
     public Hotel findHotelByHotelName(String hotelName){
+        if(hotelName==null)return null;
         return hotelRepository.getHotelByHotelName(hotelName);
     }
 
 
     public String getHotelWithMostFacilities() {
         List<Hotel> hotels = hotelRepository.findAll();
+        if(hotels==null || hotels.size()==0)return "";
         return hotels.stream()
                 .filter(hotel -> hotel.getFacilities()!=null && hotel.getFacilities().size()>0)
                 .max(Comparator.comparingInt((Hotel hotel) -> hotel.getFacilities().size())
@@ -42,6 +44,8 @@ public class HotelService {
     public Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
 
         Hotel hotel =  hotelRepository.getHotelByHotelName(hotelName);
+        if(newFacilities==null)return hotel;
+        if(hotel==null)return null;
         hotel.setFacilities(newFacilities);
         return hotel;
     }
