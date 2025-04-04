@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @Service
 public class BookingService {
 
-
     HotelService hotelService = new HotelService();
 
     BookingRepository bookingRepository = new BookingRepository();

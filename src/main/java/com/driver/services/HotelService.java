@@ -31,7 +31,8 @@ public class HotelService {
 
 
     public String getHotelWithMostFacilities() {
-        List<Hotel> hotels = hotelRepository.findAll();
+        Map<String,Hotel> hotelMap = hotelRepository.findAll();
+        List<Hotel> hotels = new ArrayList<>(hotelMap.values());
         if(hotels==null || hotels.size()==0)return "";
         return hotels.stream()
                 .filter(hotel -> hotel.getFacilities()!=null && hotel.getFacilities().size()>0)
