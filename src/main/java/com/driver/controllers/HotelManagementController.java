@@ -10,7 +10,6 @@ import com.driver.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/hotel")
@@ -24,6 +23,7 @@ public class HotelManagementController {
 
     @PostMapping("/add-hotel")
     public String addHotel(@RequestBody Hotel hotel) {
+        if(hotel==null || hotel.getHotelName()==null)return "FAILURE";
         return hotelService.addHotel(hotel);
     }
 
@@ -39,17 +39,20 @@ public class HotelManagementController {
 
     @PostMapping("/book-a-room")
     public Integer bookARoom(@RequestBody Booking booking) {
-        Optional<Booking> savedBooking = bookingService.save(booking);
-        return savedBooking.map(Booking::getAmountToBePaid).orElse(-1);
+        Booking savedBooking = bookingService.save(booking);
+        if(savedBooking==null)return -1;
+        return savedBooking.getAmountToBePaid();
     }
 
     @GetMapping("/get-bookings-by-a-person/{aadharCard}")
     public Integer getBookings(@PathVariable("aadharCard") Integer aadharCard) {
+        if(aadharCard==null)return 0;
         return bookingService.getBookingsByUserAadharCard(aadharCard);
     }
 
     @PutMapping("/update-facilities")
     public  Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
+        if(newFacilities==null)return hotelService.findHotelByHotelName(hotelName);
         return hotelService.updateFacilities(newFacilities, hotelName);
     }
 }

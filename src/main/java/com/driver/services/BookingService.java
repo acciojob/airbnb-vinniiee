@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,13 +16,15 @@ public class BookingService {
     HotelService hotelService = new HotelService();
 
     BookingRepository bookingRepository = new BookingRepository();
-    public Optional<Booking> save(Booking booking) {
+    public Booking save(Booking booking) {
+        if(booking==null)return null;
         Hotel hotel = hotelService.findHotelByHotelName(booking.getHotelName());
+        if(hotel==null)return null;
         int ratePerRoom = hotel.getPricePerNight();
         int availableRooms = hotel.getAvailableRooms();
         int requiredNoOfRooms = booking.getNoOfRooms();
         if(availableRooms<requiredNoOfRooms){
-            return Optional.empty();
+            return null;
         }
         hotel.setAvailableRooms(hotel.getAvailableRooms()-booking.getNoOfRooms());
         booking.setAmountToBePaid(ratePerRoom*requiredNoOfRooms);
@@ -33,10 +33,11 @@ public class BookingService {
 
 
     public Integer getBookingsByUserAadharCard(Integer aadharCard) {
+        if(aadharCard==null)return 0;
 
         HashMap<String,Booking> bookings = bookingRepository.findAll();
         List<Booking> searchResults = bookings.values().stream()
-                .filter(booking-> Objects.equals(booking.getBookingAadharCard(), aadharCard))
+                .filter(booking-> aadharCard.intValue()==booking.getBookingAadharCard())
                 .collect(Collectors.toList());
         return searchResults.size();
     }
