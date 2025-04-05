@@ -7,6 +7,7 @@ import com.driver.model.User;
 import com.driver.services.BookingService;
 import com.driver.services.HotelService;
 import com.driver.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,16 +16,24 @@ import java.util.List;
 @RequestMapping("/hotel")
 public class HotelManagementController {
 
-    HotelService hotelService = new HotelService();
+    @Autowired
+    HotelService hotelService;
 
-    UserService userService = new UserService();
+    @Autowired
+    UserService userService;
 
-    BookingService bookingService = new BookingService();
+    @Autowired
+    BookingService bookingService;
 
     @PostMapping("/add-hotel")
     public String addHotel(@RequestBody Hotel hotel) {
         if(hotel==null || hotel.getHotelName()==null)return "FAILURE";
         return hotelService.addHotel(hotel);
+    }
+
+    @GetMapping("/get-hotels")
+    public List<Hotel> getAllHotels(){
+        return hotelService.findAll();
     }
 
     @PostMapping("/add-user")
@@ -50,9 +59,19 @@ public class HotelManagementController {
         return bookingService.getBookingsByUserAadharCard(aadharCard);
     }
 
-    @PutMapping("/update-facilities")
-    public  Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
+    @PutMapping("/update-facilities/{hotelName}")
+    public  Hotel updateFacilities(@RequestBody List<Facility> newFacilities, @PathVariable String hotelName) {
         if(newFacilities==null)return hotelService.findHotelByHotelName(hotelName);
         return hotelService.updateFacilities(newFacilities, hotelName);
     }
+
+    @GetMapping("/get-users")
+    public List<User> getUsers(){
+        return userService.findAll();
+    }
+    @GetMapping("/get-bookings")
+    public List<Booking> getBookings(){
+        return bookingService.findAll();
+    }
 }
+

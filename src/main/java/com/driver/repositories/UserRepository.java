@@ -3,7 +3,9 @@ package com.driver.repositories;
 import com.driver.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class UserRepository {
@@ -20,4 +22,7 @@ public class UserRepository {
         return user;
     }
 
+    public List<User> findAll() {
+        return new ArrayList<>(users.values());
+    }
 }

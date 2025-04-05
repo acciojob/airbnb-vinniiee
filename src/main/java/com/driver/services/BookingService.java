@@ -3,8 +3,10 @@ package com.driver.services;
 import com.driver.model.Booking;
 import com.driver.model.Hotel;
 import com.driver.repositories.BookingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,9 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class BookingService {
 
-    HotelService hotelService = new HotelService();
+    @Autowired
+    HotelService hotelService;
 
-    BookingRepository bookingRepository = new BookingRepository();
+    @Autowired
+    BookingRepository bookingRepository;
     public Booking save(Booking booking) {
         if(booking==null)return null;
         Hotel hotel = hotelService.findHotelByHotelName(booking.getHotelName());
@@ -39,5 +43,9 @@ public class BookingService {
                 .filter(booking-> aadharCard.intValue()==booking.getBookingAadharCard())
                 .collect(Collectors.toList());
         return searchResults.size();
+    }
+
+    public List<Booking> findAll() {
+        return new ArrayList<>(bookingRepository.findAll().values());
     }
 }
