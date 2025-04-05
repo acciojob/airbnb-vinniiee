@@ -61,7 +61,6 @@ public class HotelManagementController {
 
     @PutMapping("/update-facilities/{hotelName}")
     public  Hotel updateFacilities(@RequestBody List<Facility> newFacilities, @PathVariable String hotelName) {
-        System.out.println(hotelName+" : "+newFacilities.toString());
         if(newFacilities==null)return hotelService.findHotelByHotelName(hotelName);
         return hotelService.updateFacilities(newFacilities, hotelName);
     }

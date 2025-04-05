@@ -50,7 +50,6 @@ public class HotelService {
         if(newFacilities==null)return hotel;
         if(hotel==null)return null;
         hotel.setFacilities(newFacilities);
-        System.out.println(hotelRepository.findAll().values().toString());
         return hotel;
     }
 
