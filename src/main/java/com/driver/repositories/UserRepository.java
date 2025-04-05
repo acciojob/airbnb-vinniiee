@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
-    private static final HashMap<Integer, User> users = new HashMap<>();
+    private HashMap<Integer, User> users = new HashMap<>();
 
 
     public User addUser(User user){

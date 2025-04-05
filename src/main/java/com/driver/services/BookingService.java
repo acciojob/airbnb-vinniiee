@@ -13,11 +13,8 @@ import java.util.stream.Collectors;
 @Service
 public class BookingService {
 
-
-    HotelService hotelService = new HotelService();
-
     BookingRepository bookingRepository = new BookingRepository();
-    public Booking save(Booking booking) {
+    public Booking save(Booking booking, HotelService hotelService) {
         if(booking==null)return null;
         Hotel hotel = hotelService.findHotelByHotelName(booking.getHotelName());
         if(hotel==null)return null;
