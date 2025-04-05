@@ -3,6 +3,7 @@ package com.driver.services;
 import com.driver.model.Facility;
 import com.driver.model.Hotel;
 import com.driver.repositories.HotelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,7 +12,8 @@ import java.util.*;
 public class HotelService {
 
 
-    HotelRepository hotelRepository = new HotelRepository();
+    @Autowired
+    HotelRepository hotelRepository;
     public String addHotel(Hotel hotel){
         if(hotel==null || hotel.getHotelName()==null){
             return  "FAILURE";
@@ -48,7 +50,11 @@ public class HotelService {
         if(newFacilities==null)return hotel;
         if(hotel==null)return null;
         hotel.setFacilities(newFacilities);
+        System.out.println(hotelRepository.findAll().values().toString());
         return hotel;
     }
 
+    public List<Hotel> findAll() {
+        return new ArrayList<>(hotelRepository.findAll().values());
+    }
 }
