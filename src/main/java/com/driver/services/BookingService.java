@@ -3,7 +3,6 @@ package com.driver.services;
 import com.driver.model.Booking;
 import com.driver.model.Hotel;
 import com.driver.repositories.BookingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,11 +13,10 @@ import java.util.stream.Collectors;
 @Service
 public class BookingService {
 
-    @Autowired
-    HotelService hotelService;
 
-    @Autowired
-    BookingRepository bookingRepository;
+    HotelService hotelService = new HotelService();
+
+    BookingRepository bookingRepository = new BookingRepository();
     public Booking save(Booking booking) {
         if(booking==null)return null;
         Hotel hotel = hotelService.findHotelByHotelName(booking.getHotelName());

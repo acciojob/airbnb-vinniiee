@@ -2,7 +2,6 @@ package com.driver.services;
 
 import com.driver.model.User;
 import com.driver.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.List;
 public class UserService {
 
 
-    @Autowired
-    UserRepository userRepository;
+
+    UserRepository userRepository = new UserRepository();
     public Integer addUser(User user){
         if(user==null)return -1;
         User savedUser = userRepository.addUser(user);
