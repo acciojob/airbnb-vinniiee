@@ -7,7 +7,6 @@ import com.driver.model.User;
 import com.driver.services.BookingService;
 import com.driver.services.HotelService;
 import com.driver.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,14 +15,13 @@ import java.util.List;
 @RequestMapping("/hotel")
 public class HotelManagementController {
 
-    @Autowired
-    HotelService hotelService;
 
-    @Autowired
-    UserService userService;
+    HotelService hotelService = new HotelService();
 
-    @Autowired
-    BookingService bookingService;
+
+    UserService userService = new UserService();
+
+    BookingService bookingService = new BookingService();
 
     @PostMapping("/add-hotel")
     public String addHotel(@RequestBody Hotel hotel) {

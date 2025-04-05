@@ -3,17 +3,18 @@ package com.driver.services;
 import com.driver.model.Facility;
 import com.driver.model.Hotel;
 import com.driver.repositories.HotelRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class HotelService {
 
 
-    @Autowired
-    HotelRepository hotelRepository;
+    HotelRepository hotelRepository = new HotelRepository();
     public String addHotel(Hotel hotel){
         if(hotel==null || hotel.getHotelName()==null){
             return  "FAILURE";
