@@ -8,7 +8,7 @@ import java.util.HashMap;
 @Repository
 public class HotelRepository {
 
-    private static final HashMap<String,Hotel> hotels = new HashMap<>();
+    private  HashMap<String,Hotel> hotels = new HashMap<>();
 
     public HotelRepository(){
     }

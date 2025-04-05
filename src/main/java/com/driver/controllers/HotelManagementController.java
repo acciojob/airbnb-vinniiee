@@ -46,7 +46,7 @@ public class HotelManagementController {
 
     @PostMapping("/book-a-room")
     public Integer bookARoom(@RequestBody Booking booking) {
-        Booking savedBooking = bookingService.save(booking);
+        Booking savedBooking = bookingService.save(booking,hotelService);
         if(savedBooking==null)return -1;
         return savedBooking.getAmountToBePaid();
     }
